@@ -1,3 +1,5 @@
 package evgeny.fetskovich.kmpstudy.app.base
 
-actual val isDebug: Boolean = false
+import evgeny.fetskovich.kmpstudy.app.BuildConfig
+
+actual val isDebug: Boolean = BuildConfig.DEBUG
