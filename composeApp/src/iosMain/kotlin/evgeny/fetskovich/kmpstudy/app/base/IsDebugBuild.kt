@@ -1,3 +1,5 @@
 package evgeny.fetskovich.kmpstudy.app.base
 
-actual val isDebug: Boolean = false
+import kotlin.native.Platform
+
+actual val isDebug: Boolean = Platform.isDebugBinary
