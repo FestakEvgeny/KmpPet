@@ -32,12 +32,16 @@ kotlin {
         
         androidMain.dependencies {
           //  coreLibraryDesugaring(libs.android.desugarjdklibs)
+            implementation(libs.koin.android)
 
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
         }
         commonMain.dependencies {
             implementation(project(":shared:domain"))
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
