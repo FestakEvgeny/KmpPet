@@ -18,7 +18,7 @@ object ProjectConfiguration {
     }
 
     object Compiler {
-        const val jvmTarget = "11"
-        val javaCompatibility = JavaVersion.VERSION_11
+        const val jvmTarget = "17"
+        val javaCompatibility = JavaVersion.VERSION_17
     }
 }

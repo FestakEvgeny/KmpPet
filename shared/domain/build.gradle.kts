@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.support.kotlinCompilerOptions
+
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
@@ -29,16 +31,17 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
+            implementation(libs.kotlin.coroutines)
+        }
 
-            commonTest.dependencies {
-                implementation(kotlin("test"))
-            }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
 
-            androidMain.dependencies {
-            }
+        androidMain.dependencies {
+        }
 
-            iosMain.dependencies {
-            }
+        iosMain.dependencies {
         }
     }
 }
