@@ -19,11 +19,13 @@ koin = "4.0.0"
 
 # Android
 androidDesugarJdkLibs = "2.1.2"
+androidSplashscreen = "1.0.1"
 
 [libraries]
 
 # Android
 android-desugarjdklibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
+androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidSplashscreen" }
 
 # coroutines
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }

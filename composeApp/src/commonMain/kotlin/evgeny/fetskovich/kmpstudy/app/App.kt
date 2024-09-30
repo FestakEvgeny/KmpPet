@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import evgeny.fetskovich.kmpstudy.app.ui.screens.splash.SplashScreen
 import evgeny.fetskovich.kmpstudy.domain.usecase.initial.SetupInitialDataIntent
 import evgeny.fetskovich.kmpstudy.domain.usecase.initial.SetupInitialDataUseCase
 import org.jetbrains.compose.resources.painterResource
@@ -39,6 +40,8 @@ fun App() {
                 }
             }
         }
+
+        SplashScreen()
 
         val useCase = remember { SetupInitialDataUseCase() }
 

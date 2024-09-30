@@ -36,6 +36,7 @@ kotlin {
 
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.splashscreen)
         }
         commonMain.dependencies {
             implementation(project(":shared:domain"))
@@ -88,6 +89,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     dependencies {
         debugImplementation(compose.uiTooling)
