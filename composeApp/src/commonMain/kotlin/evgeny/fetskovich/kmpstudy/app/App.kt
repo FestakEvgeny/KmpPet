@@ -42,13 +42,5 @@ fun App() {
         }
 
         SplashScreen()
-
-        val useCase = remember { SetupInitialDataUseCase() }
-
-        LaunchedEffect(Unit) {
-            useCase.execute(SetupInitialDataIntent()).collectLatest {
-                println("JEKA Collected $it")
-            }
-        }
     }
 }
