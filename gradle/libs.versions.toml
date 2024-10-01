@@ -21,6 +21,9 @@ koin = "4.0.0"
 androidDesugarJdkLibs = "2.1.2"
 androidSplashscreen = "1.0.1"
 
+# Multiplatform
+navigation-voyager = "1.1.0-beta02"
+
 [libraries]
 
 # Android
@@ -35,6 +38,13 @@ koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin"
 koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 
+# Navigation
+voyager-navigator = { group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "navigation-voyager" }
+voyager-screen-model = { group = "cafe.adriel.voyager", name = "voyager-screenmodel", version.ref = "navigation-voyager" }
+voyager-bottomsheet-navigator = { group = "cafe.adriel.voyager", name = "voyager-bottom-sheet-navigator", version.ref = "navigation-voyager" }
+voyager-tab-navigator = { group = "cafe.adriel.voyager", name = "voyager-tab-navigator", version.ref = "navigation-voyager" }
+voyager-transitions = { group = "cafe.adriel.voyager", name = "voyager-transitions", version.ref = "navigation-voyager" }
+voyager-koin = { group = "cafe.adriel.voyager", name = "voyager-koin", version.ref = "navigation-voyager" }
 
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }

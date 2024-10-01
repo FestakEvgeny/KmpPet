@@ -41,9 +41,11 @@ kotlin {
         commonMain.dependencies {
             implementation(project(":shared:domain"))
 
+            // DI
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
 
+            // UI
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material3)
@@ -52,6 +54,14 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+
+            // Navigation
+            implementation(libs.voyager.navigator)
+            implementation(libs.voyager.screen.model)
+            implementation(libs.voyager.bottomsheet.navigator)
+            implementation(libs.voyager.tab.navigator)
+            implementation(libs.voyager.transitions)
+            implementation(libs.voyager.koin)
         }
     }
 }
