@@ -24,6 +24,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Preview
 fun App() {
     MaterialTheme {
+        MaterialTheme.colors.error
         var showContent by remember { mutableStateOf(false) }
         Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Button(onClick = { showContent = !showContent }) {
