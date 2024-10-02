@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import evgeny.fetskovich.kmpstudy.app.ui.theme.KmpTheme
+import evgeny.fetskovich.kmpstudy.app.ui.theme.AppTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.AppColors
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -59,7 +60,7 @@ fun ActionButton(
 @Preview
 @Composable
 private fun KomusActionButtonEnabledPreview() {
-    KmpTheme {
+    AppTheme {
         ActionButton(
             onClick = {},
             text = "Да",
@@ -71,7 +72,7 @@ private fun KomusActionButtonEnabledPreview() {
 @Preview
 @Composable
 private fun KomusActionButtonDisabledPreview() {
-    KmpTheme {
+    AppTheme {
         ActionButton(
             onClick = {},
             text = "Да",
@@ -83,7 +84,7 @@ private fun KomusActionButtonDisabledPreview() {
 @Preview
 @Composable
 private fun KomusActionButtonCustomColorsPreview() {
-    KmpTheme {
+    AppTheme {
         ActionButton(
             onClick = {},
             text = "Да",

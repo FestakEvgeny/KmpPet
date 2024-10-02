@@ -26,7 +26,7 @@ object KmpTheme {
 }
 
 @Composable
-fun KmpTheme(
+fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     palette: AppColorPalette = AppColorPalette.PINK,
     content: @Composable () -> Unit

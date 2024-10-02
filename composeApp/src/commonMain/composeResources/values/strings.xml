@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Splash -->
+    <string name="splash_title">Stylish</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_prev">Prev</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_get_started">Get Started</string>
+    <string name="onboarding_header_skip">Skip</string>
+    <string name="onboarding_page_indication">%d/%d</string>
+    <string name="onboarding_page_first_title">Choose Products</string>
+    <string name="onboarding_page_first_text">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</string>
+    <string name="onboarding_page_second_title">Make Payment</string>
+    <string name="onboarding_page_second_text">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint.</string>
+    <string name="onboarding_page_third_title">Get Your Order</string>
+    <string name="onboarding_page_third_text">Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</string>
+
+</resources>
