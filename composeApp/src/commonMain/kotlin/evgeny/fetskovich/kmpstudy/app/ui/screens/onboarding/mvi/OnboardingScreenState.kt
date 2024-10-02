@@ -9,8 +9,8 @@ data class OnboardingScreenState(
     val currentPage: Int = 0,
     val prevButtonText: StringResource?,
     val nextButtonText: StringResource,
-    val pageIndication: String,
     val onboardingPages: PersistentList<OnboardingPage>,
+    val pageIndication: String = "${currentPage + 1}/${onboardingPages.size}",
 ) : ScreenState
 
 data class OnboardingPage(

@@ -10,6 +10,8 @@ class OnboardingViewModel(
     private val stateHosting: OnboardingStateHosting,
 ) : BaseViewModel(), UserEventProcessor {
 
+    val state = stateHosting.screenState
+
     override fun processEvent(userEvent: UserEvent) {
         (userEvent as? OnboardingUserEvent)?.let { event ->
             when (event) {

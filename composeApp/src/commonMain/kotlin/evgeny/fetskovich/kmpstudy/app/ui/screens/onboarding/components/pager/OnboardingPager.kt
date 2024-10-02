@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.pager
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -6,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -33,10 +36,10 @@ private val horizontalPadding = 22.dp
 @Composable
 fun OnboardingPager(
     pages: PersistentList<OnboardingPage>,
-    modifier: Modifier,
+    pagerState: PagerState,
+    modifier: Modifier = Modifier,
 ) {
 
-    val pagerState = rememberPagerState { pages.size }
     val maxHeight = remember { mutableStateOf(Dp.Unspecified) }
 
     HorizontalPager(
@@ -83,6 +86,8 @@ private fun Modifier.sameLimitedHeight(
 @Composable
 private fun OnboardingPagerPreview() {
     AppTheme {
+        val pagerState = rememberPagerState { 3 }
+
         OnboardingPager(
             pages = persistentListOf(
                 OnboardingPage(
@@ -101,6 +106,7 @@ private fun OnboardingPagerPreview() {
                     message = Res.string.onboarding_page_first_text,
                 )
             ),
+            pagerState = pagerState,
             modifier = Modifier
                 .fillMaxWidth()
         )

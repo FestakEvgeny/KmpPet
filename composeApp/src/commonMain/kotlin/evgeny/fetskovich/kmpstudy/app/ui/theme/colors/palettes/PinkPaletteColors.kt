@@ -1,7 +1,6 @@
 package evgeny.fetskovich.kmpstudy.app.ui.theme.colors.palettes
 
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.ui.graphics.Color
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.AppColors
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.AppTextColors
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.ThemedColors
@@ -16,7 +15,7 @@ private val lightPalette = ThemedColors(
     materialColors = lightColorScheme(),
     textColors = AppTextColors(
         baseTextColor = AppColors.black,
-        textColorSecondary = AppColors.gray,
+        textColorSecondary = AppColors.lightGray,
         errorTextColor = AppColors.pink,
     ),
 )
