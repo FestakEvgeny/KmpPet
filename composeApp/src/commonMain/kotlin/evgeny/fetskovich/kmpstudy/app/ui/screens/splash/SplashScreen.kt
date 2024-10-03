@@ -16,14 +16,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
+import cafe.adriel.voyager.navigator.LocalNavigator
+import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.OnboardingNavigation
+import evgeny.fetskovich.kmpstudy.app.ui.screens.splash.mvi.SplashScreenNavigation
 import evgeny.fetskovich.kmpstudy.app.ui.theme.AppTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.KmpTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.AppColors
 import fetskovichkmppet.composeapp.generated.resources.Res
 import fetskovichkmppet.composeapp.generated.resources.ic_splash
 import fetskovichkmppet.composeapp.generated.resources.splash_title
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -32,6 +41,8 @@ import org.koin.compose.koinInject
 @Composable
 fun SplashScreen() {
     val viewModel: SplashViewModel = koinInject()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val navigator = LocalNavigator.current
 
     Box(
         contentAlignment = Alignment.Center,
@@ -73,6 +84,24 @@ fun SplashScreen() {
 
     LaunchedEffect(Unit) {
         viewModel.setup()
+    }
+
+    LaunchedEffect(Unit) {
+        launch {
+            viewModel.navigationResult
+                .flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
+                .map { it as SplashScreenNavigation }
+                .collectLatest { navigation ->
+                    when (navigation) {
+                        SplashScreenNavigation.OpenMainScreen -> TODO()
+                        SplashScreenNavigation.OpenOnboarding -> {
+                            navigator?.push(OnboardingNavigation())
+                        }
+
+                        SplashScreenNavigation.OpenLoginScreen -> TODO()
+                    }
+                }
+        }
     }
 }
 

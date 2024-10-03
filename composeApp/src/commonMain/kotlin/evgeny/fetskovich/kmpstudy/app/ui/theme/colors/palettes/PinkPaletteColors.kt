@@ -3,6 +3,7 @@ package evgeny.fetskovich.kmpstudy.app.ui.theme.colors.palettes
 import androidx.compose.material3.lightColorScheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.AppColors
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.AppTextColors
+import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.TextInputLayoutColors
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.ThemedColors
 
 fun pinkAppColors(isDark: Boolean) = if (isDark) {
@@ -20,6 +21,13 @@ private val lightPalette = ThemedColors(
         textColorSecondary = AppColors.lightGray,
         errorTextColor = AppColors.pink,
     ),
+    authorizationInputLayoutColors = TextInputLayoutColors(
+        focusedTextColor = AppColors.registrationInputText,
+        hintTextColor = AppColors.registrationInputText,
+        hintBorderTextColor = AppColors.lightGray,
+        focusedBorderTextColor = AppColors.authorizationBorder,
+        errorColor = AppColors.error,
+    )
 )
 
 private val darkPalette = lightPalette

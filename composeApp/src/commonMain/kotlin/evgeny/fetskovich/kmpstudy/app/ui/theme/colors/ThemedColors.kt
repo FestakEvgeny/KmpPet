@@ -3,9 +3,10 @@ package evgeny.fetskovich.kmpstudy.app.ui.theme.colors
 import androidx.compose.material3.ColorScheme
 import androidx.compose.ui.graphics.Color
 
-data class ThemedColors (
+data class ThemedColors(
     val materialColors: ColorScheme,
     val textColors: AppTextColors,
+    val authorizationInputLayoutColors: TextInputLayoutColors,
 ) {
 
     val primary = materialColors.primary
@@ -19,6 +20,17 @@ data class ThemedColors (
     val onSurface = materialColors.onSurface
     val onError = materialColors.onError
 }
+
+data class TextInputLayoutColors(
+    val focusedTextColor: Color,
+
+    val hintTextColor: Color,
+    val hintBorderTextColor: Color,
+
+    val focusedBorderTextColor: Color,
+
+    val errorColor: Color,
+)
 
 data class AppTextColors(
     val baseTextColor: Color,
