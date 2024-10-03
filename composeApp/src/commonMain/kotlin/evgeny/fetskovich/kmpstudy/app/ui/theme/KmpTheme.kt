@@ -10,7 +10,7 @@ import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.ThemedColors
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.appColors
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.palettes.AppColorPalette
 import evgeny.fetskovich.kmpstudy.app.ui.theme.typography.AppTypography
-import evgeny.fetskovich.kmpstudy.app.ui.theme.typography.LocalAppTypographies
+import evgeny.fetskovich.kmpstudy.app.ui.theme.typography.appTypography
 
 object KmpTheme {
 
@@ -21,8 +21,7 @@ object KmpTheme {
 
     val typography: AppTypography
         @Composable
-        @ReadOnlyComposable
-        get() = LocalAppTypographies.current
+        get() = appTypography
 }
 
 @Composable

@@ -16,11 +16,16 @@ class OnboardingViewModel(
         (userEvent as? OnboardingUserEvent)?.let { event ->
             when (event) {
                 is OnboardingUserEvent.UpdatePage -> updatePage(event.page)
+                OnboardingUserEvent.CloseOnboarding -> closeOnboarding()
             }
         }
     }
 
     private fun updatePage(page: Int) {
         stateHosting.updateScreenPage(page)
+    }
+
+    private fun closeOnboarding() {
+
     }
 }

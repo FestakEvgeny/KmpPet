@@ -15,16 +15,21 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import evgeny.fetskovich.kmpstudy.app.architecture.mvi.MockUserEventProcessor
+import evgeny.fetskovich.kmpstudy.app.architecture.mvi.UserEventProcessor
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.OnboardingFooter
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.OnboardingHeader
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.pager.OnboardingPager
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.mvi.OnboardingPage
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.mvi.OnboardingScreenState
+import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.mvi.OnboardingUserEvent
 import evgeny.fetskovich.kmpstudy.app.ui.theme.AppTheme
 import fetskovichkmppet.composeapp.generated.resources.Res
 import fetskovichkmppet.composeapp.generated.resources.ic_onboarding_first_page
@@ -38,6 +43,7 @@ import fetskovichkmppet.composeapp.generated.resources.onboarding_page_second_ti
 import fetskovichkmppet.composeapp.generated.resources.onboarding_page_third_text
 import fetskovichkmppet.composeapp.generated.resources.onboarding_page_third_title
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.coroutines.flow.collectLatest
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 private val horizontalPadding = 12.dp
@@ -50,13 +56,15 @@ fun OnboardingScreen(
 
     Screen(
         state = state,
+        userEventProcessor = viewModel,
     )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun Screen(
-    state: OnboardingScreenState
+    state: OnboardingScreenState,
+    userEventProcessor: UserEventProcessor,
 ) {
     val pagerState = rememberPagerState(
         initialPage = state.currentPage,
@@ -68,7 +76,9 @@ private fun Screen(
     Scaffold(
         topBar = {
             OnboardingHeader(
-                pageIndicator = state.pageIndication,
+                currentPage = state.currentPage + 1,
+                totalPages = state.onboardingPages.size,
+                userEventProcessor,
                 modifier = Modifier
                     .statusBarsPadding()
                     .padding(
@@ -82,6 +92,7 @@ private fun Screen(
                 prevButtonText = state.prevButtonText,
                 nextButtonText = state.nextButtonText,
                 pagerState = pagerState,
+                userEventProcessor,
                 modifier = Modifier
                     .navigationBarsPadding()
                     .padding(
@@ -109,6 +120,13 @@ private fun Screen(
                     )
             )
         }
+    }
+
+    LaunchedEffect(pagerState) {
+        snapshotFlow { pagerState.currentPage }
+            .collectLatest { page ->
+                userEventProcessor.processEvent(OnboardingUserEvent.UpdatePage(page))
+            }
     }
 }
 
@@ -139,6 +157,9 @@ private fun ScreenPreview() {
             ),
         )
 
-        Screen(state)
+        Screen(
+            state = state,
+            userEventProcessor = MockUserEventProcessor,
+        )
     }
 }

@@ -5,6 +5,7 @@ import fetskovichkmppet.composeapp.generated.resources.Res
 import fetskovichkmppet.composeapp.generated.resources.ic_onboarding_first_page
 import fetskovichkmppet.composeapp.generated.resources.ic_onboarding_second_page
 import fetskovichkmppet.composeapp.generated.resources.ic_onboarding_third_page
+import fetskovichkmppet.composeapp.generated.resources.onboarding_get_started
 import fetskovichkmppet.composeapp.generated.resources.onboarding_next
 import fetskovichkmppet.composeapp.generated.resources.onboarding_page_first_text
 import fetskovichkmppet.composeapp.generated.resources.onboarding_page_first_title
@@ -12,9 +13,13 @@ import fetskovichkmppet.composeapp.generated.resources.onboarding_page_second_te
 import fetskovichkmppet.composeapp.generated.resources.onboarding_page_second_title
 import fetskovichkmppet.composeapp.generated.resources.onboarding_page_third_text
 import fetskovichkmppet.composeapp.generated.resources.onboarding_page_third_title
+import fetskovichkmppet.composeapp.generated.resources.onboarding_prev
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.update
+import org.jetbrains.compose.resources.StringResource
+
+private const val ONBOARDING_PAGES = 3
 
 class OnboardingStateHosting : StateHosting<OnboardingScreenState>() {
 
@@ -24,9 +29,26 @@ class OnboardingStateHosting : StateHosting<OnboardingScreenState>() {
         _screenState.update {
             it.copy(
                 currentPage = page,
+                prevButtonText = calculatePrevButtonText(page),
+                nextButtonText = calculateNextButtonText(page),
             )
         }
     }
+
+    private fun calculatePrevButtonText(page: Int) : StringResource? =
+        if (page == 0) {
+            null
+        } else {
+            Res.string.onboarding_prev
+        }
+
+    private fun calculateNextButtonText(page: Int) : StringResource =
+        if (page == ONBOARDING_PAGES - 1) {
+            Res.string.onboarding_get_started
+        } else {
+            Res.string.onboarding_next
+        }
+
 
     override fun createInitialState(): OnboardingScreenState = OnboardingScreenState(
         currentPage = 0,
@@ -52,5 +74,5 @@ class OnboardingStateHosting : StateHosting<OnboardingScreenState>() {
             message = Res.string.onboarding_page_third_text,
         ),
     )
-
 }
+

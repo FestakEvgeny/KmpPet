@@ -1,27 +1,30 @@
 package evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.pager
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import evgeny.fetskovich.kmpstudy.app.ui.theme.AppTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.AppColors
 import org.jetbrains.compose.ui.tooling.preview.Preview
+
+private const val INDICATOR_WIDTH_DP = 10
+private const val INDICATOR_HEIGHT_DP = 10
+private const val INDICATOR_SPACING_DP = 10
+private const val ACTIVE_INDICATOR_WIDTH_DP = 40
+private const val INDICATOR_RADIUS = 50f
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -41,64 +44,81 @@ private fun PagerIndicator(
     pagerState: PagerState,
     modifier: Modifier = Modifier
 ) {
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.CenterStart
+    val density = LocalDensity.current
+
+    val dotWidth = with(density) {
+        remember { INDICATOR_WIDTH_DP.dp.toPx() }
+    }
+    val dotHeight = with(density) {
+        remember { INDICATOR_HEIGHT_DP.dp.toPx() }
+    }
+    val spacing = with(density) {
+        remember { INDICATOR_SPACING_DP.dp.toPx() }
+    }
+
+    val activeDotWidth = with(density) {
+        remember { ACTIVE_INDICATOR_WIDTH_DP.dp.toPx() }
+    }
+
+    val totalWidth = remember(pagerState.pageCount) {
+        val notActiveIndicators = pagerState.pageCount - 1
+        val indicatorsTotalWidth =
+            ACTIVE_INDICATOR_WIDTH_DP + (INDICATOR_WIDTH_DP * notActiveIndicators)
+        val indicatorsTotalSpace = notActiveIndicators * INDICATOR_SPACING_DP
+
+        (indicatorsTotalWidth + indicatorsTotalSpace).dp
+    }
+
+    Canvas(
+        modifier = modifier
+            .width(totalWidth)
     ) {
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier,
-        ) {
-            repeat(pagerState.pageCount) { index ->
-                val color = if (index == pagerState.currentPage) {
-                    AppColors.selectedIndicator
-                } else {
-                    AppColors.unselectedIndicator
-                }
+        var x = 0f
+        val y = center.y
 
-                Box(
-                    modifier = Modifier
-                        .size(10.dp)
-                        .background(
-                            color = color,
-                            shape = CircleShape
-                        )
-                )
+        repeat(pagerState.pageCount) { i ->
+            val posOffset = pagerState.currentPage + pagerState.currentPageOffsetFraction
+            val dotOffset = posOffset % 1
+            val current = posOffset.toInt()
+
+            val factor = (dotOffset * (activeDotWidth - dotWidth))
+
+            val calculatedWidth = when {
+                i == current -> activeDotWidth - factor
+                i - 1 == current -> dotWidth + factor
+                i == 0 && posOffset > pagerState.pageCount - 1 -> dotWidth + factor
+                else -> dotWidth
             }
+
+            drawIndicator(
+                x = x,
+                y = y,
+                width = calculatedWidth,
+                height = dotHeight,
+                radius = CornerRadius(INDICATOR_RADIUS)
+            )
+
+            x += calculatedWidth + spacing
         }
-
-        Box(
-            Modifier
-                .size(10.dp)
-                .wormTransition(pagerState)
-
-        )
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-private fun Modifier.wormTransition(
-    pagerState: PagerState
-) = drawBehind {
-    val distance = size.width + 10.dp.roundToPx()
-    val scrollPosition = pagerState.currentPage + pagerState.currentPageOffsetFraction
-    val wormOffset = (scrollPosition % 1) * 2
-
-    val xPos = scrollPosition.toInt() * distance
-    val head = xPos + distance * 0f.coerceAtLeast(wormOffset - 1)
-    val tail = xPos + size.width + 1f.coerceAtMost(wormOffset) * distance
-
-    val worm = RoundRect(
-        left = head,
-        top = 0f,
-        right = tail,
-        bottom = size.height,
-        cornerRadius = CornerRadius(50f)
+private fun DrawScope.drawIndicator(
+    x: Float,
+    y: Float,
+    width: Float,
+    height: Float,
+    radius: CornerRadius
+) {
+    val rect = RoundRect(
+        left = x,
+        top = y - height / 2,
+        right = x + width,
+        bottom = y + height / 2,
+        cornerRadius = radius
     )
-
-    val path = Path().apply { addRoundRect(worm) }
-    drawPath(path = path, color = AppColors.unselectedIndicator)
+    val path = Path().apply { addRoundRect(rect) }
+    drawPath(path = path, color = AppColors.primary)
 }
 
 @OptIn(ExperimentalFoundationApi::class)

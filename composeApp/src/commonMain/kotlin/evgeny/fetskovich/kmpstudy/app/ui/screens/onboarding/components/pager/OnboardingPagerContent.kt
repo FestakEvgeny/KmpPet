@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -38,6 +39,7 @@ fun OnboardingPagerContent(
         Image(
             painter = painterResource(page.image),
             contentDescription = "onboarding image",
+            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .defaultMinSize(
                     minWidth = 300.dp,
