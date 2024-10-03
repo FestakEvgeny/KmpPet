@@ -14,8 +14,8 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
+import evgeny.fetskovich.kmpstudy.app.extensions.dpToPx
 import evgeny.fetskovich.kmpstudy.app.ui.theme.AppTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.AppColors
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -44,21 +44,10 @@ private fun PagerIndicator(
     pagerState: PagerState,
     modifier: Modifier = Modifier
 ) {
-    val density = LocalDensity.current
-
-    val dotWidth = with(density) {
-        remember { INDICATOR_WIDTH_DP.dp.toPx() }
-    }
-    val dotHeight = with(density) {
-        remember { INDICATOR_HEIGHT_DP.dp.toPx() }
-    }
-    val spacing = with(density) {
-        remember { INDICATOR_SPACING_DP.dp.toPx() }
-    }
-
-    val activeDotWidth = with(density) {
-        remember { ACTIVE_INDICATOR_WIDTH_DP.dp.toPx() }
-    }
+    val dotWidth = INDICATOR_WIDTH_DP.dpToPx
+    val dotHeight = INDICATOR_HEIGHT_DP.dpToPx
+    val spacing = INDICATOR_SPACING_DP.dpToPx
+    val activeDotWidth = ACTIVE_INDICATOR_WIDTH_DP.dpToPx
 
     val totalWidth = remember(pagerState.pageCount) {
         val notActiveIndicators = pagerState.pageCount - 1
