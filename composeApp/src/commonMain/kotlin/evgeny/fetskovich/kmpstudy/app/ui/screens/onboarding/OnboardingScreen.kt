@@ -1,14 +1,25 @@
 package evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.OnboardingFooter
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.OnboardingHeader
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.pager.OnboardingPager
@@ -28,6 +39,8 @@ import fetskovichkmppet.composeapp.generated.resources.onboarding_page_third_tex
 import fetskovichkmppet.composeapp.generated.resources.onboarding_page_third_title
 import kotlinx.collections.immutable.persistentListOf
 import org.jetbrains.compose.ui.tooling.preview.Preview
+
+private val horizontalPadding = 12.dp
 
 @Composable
 fun OnboardingScreen(
@@ -56,6 +69,12 @@ private fun Screen(
         topBar = {
             OnboardingHeader(
                 pageIndicator = state.pageIndication,
+                modifier = Modifier
+                    .statusBarsPadding()
+                    .padding(
+                        horizontal = horizontalPadding,
+                        vertical = 8.dp,
+                    )
             )
         },
         bottomBar = {
@@ -63,17 +82,31 @@ private fun Screen(
                 prevButtonText = state.prevButtonText,
                 nextButtonText = state.nextButtonText,
                 pagerState = pagerState,
+                modifier = Modifier
+                    .navigationBarsPadding()
+                    .padding(
+                        horizontal = horizontalPadding,
+                        vertical = 8.dp,
+                    )
             )
         }
     ) { paddings ->
 
-        Column(
+        Box(
+            contentAlignment = Alignment.Center,
             modifier = Modifier
                 .padding(paddings)
+                .consumeWindowInsets(paddings)
+                .windowInsetsPadding(WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal))
+                .fillMaxSize(),
         ) {
             OnboardingPager(
                 pages = state.onboardingPages,
                 pagerState = pagerState,
+                modifier = Modifier
+                    .padding(
+                        horizontal = horizontalPadding,
+                    )
             )
         }
     }

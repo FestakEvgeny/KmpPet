@@ -12,7 +12,9 @@ fun pinkAppColors(isDark: Boolean) = if (isDark) {
 }
 
 private val lightPalette = ThemedColors(
-    materialColors = lightColorScheme(),
+    materialColors = lightColorScheme(
+        background = AppColors.white,
+    ),
     textColors = AppTextColors(
         baseTextColor = AppColors.black,
         textColorSecondary = AppColors.lightGray,

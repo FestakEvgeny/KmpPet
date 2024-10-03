@@ -3,6 +3,7 @@
 package evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.PagerState
@@ -11,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.pager.OnboardingPagerIndicator
 import evgeny.fetskovich.kmpstudy.app.ui.theme.AppTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.KmpTheme
@@ -40,19 +42,25 @@ fun OnboardingFooter(
                 text = stringResource(prevButtonText),
                 color = AppColors.brightGray,
                 style = KmpTheme.typography.bodyLarge,
+                fontWeight = FontWeight.SemiBold
             )
         }
 
-        OnboardingPagerIndicator(
-            pagerState = pagerState,
-            modifier = Modifier
-                .weight(1f)
-        )
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier =  Modifier
+                .weight(1f),
+        ) {
+            OnboardingPagerIndicator(
+                pagerState = pagerState,
+            )
+        }
 
         Text(
             text = stringResource(nextButtonText),
             color = AppColors.primary,
             style = KmpTheme.typography.bodyLarge,
+            fontWeight = FontWeight.SemiBold
         )
     }
 }

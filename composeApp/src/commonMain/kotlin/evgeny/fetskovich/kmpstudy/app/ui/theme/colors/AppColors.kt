@@ -13,4 +13,7 @@ object AppColors {
     val darkGray = Color(0xFFA0A0A1)
 
     val selectedIndicator = Color(0xFF17223B)
+    val unselectedIndicator = selectedIndicator.copy(
+        alpha = 0.2f,
+    )
 }

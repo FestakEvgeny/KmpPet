@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import evgeny.fetskovich.kmpstudy.app.ui.theme.AppTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.KmpTheme
 import fetskovichkmppet.composeapp.generated.resources.Res
@@ -26,12 +27,14 @@ fun OnboardingHeader(
         Text(
             text = pageIndicator,
             style = KmpTheme.typography.bodyLarge,
+            fontWeight = FontWeight.SemiBold
         )
 
         Text(
             text = stringResource(Res.string.onboarding_header_skip),
             style = KmpTheme.typography.bodyLarge,
             color = KmpTheme.colors.textColors.baseTextColor,
+            fontWeight = FontWeight.SemiBold
         )
     }
 }

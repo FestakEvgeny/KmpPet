@@ -17,10 +17,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.RoundRect
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.unit.dp
 import evgeny.fetskovich.kmpstudy.app.ui.theme.AppTheme
+import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.AppColors
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -47,16 +47,21 @@ private fun PagerIndicator(
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = modifier
-                .height(48.dp),
             verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier,
         ) {
             repeat(pagerState.pageCount) { index ->
+                val color = if (index == pagerState.currentPage) {
+                    AppColors.selectedIndicator
+                } else {
+                    AppColors.unselectedIndicator
+                }
+
                 Box(
                     modifier = Modifier
-                        .size(20.dp)
+                        .size(10.dp)
                         .background(
-                            color = Color.White,
+                            color = color,
                             shape = CircleShape
                         )
                 )
@@ -65,8 +70,9 @@ private fun PagerIndicator(
 
         Box(
             Modifier
+                .size(10.dp)
                 .wormTransition(pagerState)
-                .size(20.dp)
+
         )
     }
 }
@@ -92,7 +98,7 @@ private fun Modifier.wormTransition(
     )
 
     val path = Path().apply { addRoundRect(worm) }
-    drawPath(path = path, color = Color.White)
+    drawPath(path = path, color = AppColors.unselectedIndicator)
 }
 
 @OptIn(ExperimentalFoundationApi::class)
