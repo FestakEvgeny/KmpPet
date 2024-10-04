@@ -30,6 +30,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(project(":shared:domain"))
+            implementation(libs.kotlin.coroutines)
         }
 
         commonTest.dependencies {

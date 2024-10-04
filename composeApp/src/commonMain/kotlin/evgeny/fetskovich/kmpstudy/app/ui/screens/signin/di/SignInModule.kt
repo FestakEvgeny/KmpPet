@@ -6,6 +6,9 @@ import org.koin.dsl.module
 
 val signInModule = module {
     viewModelDefinition {
-        SignInViewModel()
+        SignInViewModel(
+            stateHosting = get(),
+            authorizeUserUseCase = get(),
+        )
     }
 }
