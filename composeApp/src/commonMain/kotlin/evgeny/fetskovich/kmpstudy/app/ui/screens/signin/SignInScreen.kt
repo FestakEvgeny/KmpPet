@@ -17,16 +17,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import evgeny.fetskovich.kmpstudy.app.architecture.mvi.UserEventProcessor
 import evgeny.fetskovich.kmpstudy.app.ui.screens.signin.mvi.SignInScreenState
+import evgeny.fetskovich.kmpstudy.app.ui.screens.signin.mvi.SignInUserEvent
 import evgeny.fetskovich.kmpstudy.app.ui.theme.KmpTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.elements.button.ActionButton
 import evgeny.fetskovich.kmpstudy.app.ui.theme.elements.input.AuthorizationInput
 import fetskovichkmppet.composeapp.generated.resources.Res
 import fetskovichkmppet.composeapp.generated.resources.ic_splash
-import org.koin.compose.koinInject
+import fetskovichkmppet.composeapp.generated.resources.sign_in_continue_with
+import fetskovichkmppet.composeapp.generated.resources.sign_in_forgot_password
+import fetskovichkmppet.composeapp.generated.resources.sign_in_login_btn
+import fetskovichkmppet.composeapp.generated.resources.sign_in_password_hint
+import fetskovichkmppet.composeapp.generated.resources.sign_in_title
+import fetskovichkmppet.composeapp.generated.resources.sign_in_username_hint
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun SignInScreen () {
-    val viewModel: SignInViewModel = koinInject()
+fun SignInScreen (
+    viewModel: SignInViewModel
+) {
     val state by viewModel.screenState.collectAsState()
 
     Screen(
@@ -48,7 +56,7 @@ private fun Screen(
     ) {
 
         Text(
-            text = "Welcome\nBack!",
+            text = stringResource(Res.string.sign_in_title),
             color = KmpTheme.colors.textColors.baseTextColor,
             style = KmpTheme.typography.titleLarge.copy(
                 fontSize = 36.sp,
@@ -57,38 +65,42 @@ private fun Screen(
 
         AuthorizationInput(
             input = state.username,
-            placeholder = "Username or Email",
+            placeholder = stringResource(Res.string.sign_in_username_hint),
             isSaveField = false,
-            onValueUpdate = {},
+            onValueUpdate = {
+                userEventProcessor.processEvent(SignInUserEvent.UpdateUsername(it))
+            },
             leftIcon = Res.drawable.ic_splash,
         )
 
         AuthorizationInput(
             input = state.password,
-            placeholder = "Password",
+            placeholder = stringResource(Res.string.sign_in_password_hint),
             isSaveField = false,
-            onValueUpdate = {},
+            onValueUpdate = {
+                userEventProcessor.processEvent(SignInUserEvent.UpdatePassword(it))
+            },
             leftIcon = Res.drawable.ic_splash,
         )
 
         Text(
-            text = "Forgot password?",
+            text = stringResource(Res.string.sign_in_forgot_password),
             textAlign = TextAlign.End,
             modifier = Modifier
                 .fillMaxWidth()
         )
 
         ActionButton(
-            text = "Login",
+            text = stringResource(Res.string.sign_in_login_btn),
             onClick = {
-
+                userEventProcessor.processEvent(SignInUserEvent.Login)
             }
         )
 
         Spacer(Modifier.height(70.dp))
 
         Text(
-            text = "OR"
+            text = stringResource(Res.string.sign_in_continue_with),
         )
 
 

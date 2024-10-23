@@ -10,10 +10,10 @@ import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected val _navigationResult = Channel<Navigation>()
+    private val _navigationResult = Channel<Navigation>()
     val navigationResult = _navigationResult.receiveAsFlow()
 
-    protected val _actionResult = Channel<SingleAction>()
+    private val _actionResult = Channel<SingleAction>()
     val actionResult = _navigationResult.receiveAsFlow()
 
     protected fun sendNavigation(navigation: Navigation) {

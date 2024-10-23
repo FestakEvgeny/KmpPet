@@ -1,11 +1,9 @@
-package evgeny.fetskovich.kmpstudy.app.di.domain
+package evgeny.fetskovich.kmpstudy.app.di.domain.usecase.authorization
 
 import evgeny.fetskovich.kmpstudy.domain.usecase.initial.AuthorizeUserUseCase
-import evgeny.fetskovich.kmpstudy.domain.usecase.initial.SetupInitialDataUseCase
 import org.koin.dsl.module
 
-val useCaseModule = module {
-    factory { SetupInitialDataUseCase() }
+val authorizationUseCaseModule = module {
     factory {
         AuthorizeUserUseCase(
             userRepository = get(),

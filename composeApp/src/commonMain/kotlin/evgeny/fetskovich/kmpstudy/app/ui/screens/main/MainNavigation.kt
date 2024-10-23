@@ -1,16 +1,16 @@
-package evgeny.fetskovich.kmpstudy.app.ui.screens.splash
+package evgeny.fetskovich.kmpstudy.app.ui.screens.main
 
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
 import org.koin.compose.koinInject
 
-class SplashNavigation : Screen {
+class MainNavigation : Screen {
 
     @Composable
     override fun Content() {
-        val viewModel: SplashViewModel = koinInject()
+        val viewModel: MainViewModel = koinInject()
 
-        SplashScreen(
+        MainScreen(
             viewModel = viewModel,
         )
     }
