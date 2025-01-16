@@ -28,6 +28,7 @@ data class TextInputLayoutColors(
     val hintBorderTextColor: Color,
 
     val focusedBorderTextColor: Color,
+    val backgroundColor: Color,
 
     val errorColor: Color,
 )

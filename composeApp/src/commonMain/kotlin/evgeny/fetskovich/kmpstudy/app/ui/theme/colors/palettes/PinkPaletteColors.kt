@@ -25,8 +25,9 @@ private val lightPalette = ThemedColors(
         focusedTextColor = AppColors.registrationInputText,
         hintTextColor = AppColors.registrationInputText,
         hintBorderTextColor = AppColors.lightGray,
-        focusedBorderTextColor = AppColors.authorizationBorder,
+        focusedBorderTextColor = AppColors.lightGray,
         errorColor = AppColors.error,
+        backgroundColor = AppColors.inputBackground
     )
 )
 

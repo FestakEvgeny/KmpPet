@@ -68,11 +68,11 @@ class SignInViewModel(
             stateHosting.updateAuthorizationData(
                 name = ValidationField(
                     text = name,
-                    errorMessage = "Not valid"
+                    errorMessage = "Not valid" // TODO Fix res
                 ),
                 password = ValidationField(
                     text = password,
-                    errorMessage = "Not Valid",
+                    errorMessage = "Not Valid", // TODO Fix res
                 )
             )
 

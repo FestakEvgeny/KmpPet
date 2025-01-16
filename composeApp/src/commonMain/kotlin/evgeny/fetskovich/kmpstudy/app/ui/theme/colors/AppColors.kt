@@ -13,7 +13,7 @@ object AppColors {
     val darkGray = Color(0xFFA0A0A1)
 
     val registrationInputText = Color(0xFF676767)
-    val authorizationBorder = Color(0xFFF3F3F3)
+    val inputBackground = Color(0xFFF3F3F3)
     val authorizationIcon = Color(0xFF626262)
 
     val selectedIndicator = Color(0xFF17223B)

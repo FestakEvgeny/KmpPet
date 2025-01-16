@@ -15,8 +15,8 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import evgeny.fetskovich.kmpstudy.app.ui.theme.KmpTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.AppTheme
+import evgeny.fetskovich.kmpstudy.app.ui.theme.KmpTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.AppColors
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -31,8 +31,8 @@ fun ActionButton(
     borderStroke: BorderStroke? = null,
     shape: Shape = RoundedCornerShape(6.dp),
     colors: ButtonColors = ButtonDefaults.textButtonColors(
-        containerColor = AppColors.pink,
-        disabledContainerColor = AppColors.pink,
+        containerColor = AppColors.primary,
+        disabledContainerColor = AppColors.primary,
         contentColor = AppColors.white,
         disabledContentColor = AppColors.white,
     )
