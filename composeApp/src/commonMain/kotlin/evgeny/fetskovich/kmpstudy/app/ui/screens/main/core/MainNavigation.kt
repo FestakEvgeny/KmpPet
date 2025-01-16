@@ -1,4 +1,4 @@
-package evgeny.fetskovich.kmpstudy.app.ui.screens.main
+package evgeny.fetskovich.kmpstudy.app.ui.screens.main.core
 
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
