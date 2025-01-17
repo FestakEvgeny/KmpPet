@@ -13,16 +13,22 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.navigator.LocalNavigator
 import evgeny.fetskovich.kmpstudy.app.architecture.mvi.MockUserEventProcessor
 import evgeny.fetskovich.kmpstudy.app.architecture.mvi.UserEventProcessor
+import evgeny.fetskovich.kmpstudy.app.extensions.collectNavigation
+import evgeny.fetskovich.kmpstudy.app.ui.screens.signin.mvi.SignInNavigationEvent
 import evgeny.fetskovich.kmpstudy.app.ui.screens.signin.mvi.SignInScreenState
 import evgeny.fetskovich.kmpstudy.app.ui.screens.signin.mvi.SignInUserEvent
+import evgeny.fetskovich.kmpstudy.app.ui.screens.signup.SignUpNavigation
 import evgeny.fetskovich.kmpstudy.app.ui.theme.AppTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.KmpTheme
 import evgeny.fetskovich.kmpstudy.app.ui.theme.colors.AppColors
@@ -58,11 +64,25 @@ fun SignInScreen(
     viewModel: SignInViewModel
 ) {
     val state by viewModel.screenState.collectAsState()
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val navigator = LocalNavigator.current
 
     Screen(
         state = state,
         userEventProcessor = viewModel,
     )
+
+    LaunchedEffect(Unit) {
+        viewModel.collectNavigation<SignInNavigationEvent>(
+            lifecycleOwner = lifecycleOwner,
+            scope = this
+        ) { navigation ->
+            when (navigation) {
+                SignInNavigationEvent.NavigateBack -> navigator?.pop()
+                SignInNavigationEvent.ToSignUp -> navigator?.push(SignUpNavigation())
+            }
+        }
+    }
 }
 
 @Composable

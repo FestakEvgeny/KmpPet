@@ -12,6 +12,7 @@ val onboardingModule = module {
     viewModelDefinition {
         OnboardingViewModel(
             stateHosting = get(),
+            coroutineDispatcher = get(),
         )
     }
 }

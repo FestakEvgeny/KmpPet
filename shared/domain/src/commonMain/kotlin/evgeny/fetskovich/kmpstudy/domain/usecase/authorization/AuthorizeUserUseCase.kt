@@ -1,4 +1,4 @@
-package evgeny.fetskovich.kmpstudy.domain.usecase.initial
+package evgeny.fetskovich.kmpstudy.domain.usecase.authorization
 
 import evgeny.fetskovich.kmpstudy.domain.repository.UserRepository
 import evgeny.fetskovich.kmpstudy.domain.usecase.UseCase
@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 
-class AuthorizeUserUseCase (
+class AuthorizeUserUseCase(
     private val userRepository: UserRepository,
 ) : UseCase<AuthorizeUserIntent, AuthorizeUserResult> {
 

@@ -32,6 +32,21 @@ class UserRepositoryImpl : UserRepository {
         emit(true)
     }
 
+    override fun registerUser(
+        login: String,
+        password: String
+    ): Flow<Boolean> = flow {
+        delay(500L)
+        // TODO Store user data
+        _userState.update {
+            User(
+                username = login,
+            )
+        }
+
+        emit(true)
+    }
+
     override fun logout(): Flow<Boolean> = flow {
         delay(500L)
         _userState.update { null }

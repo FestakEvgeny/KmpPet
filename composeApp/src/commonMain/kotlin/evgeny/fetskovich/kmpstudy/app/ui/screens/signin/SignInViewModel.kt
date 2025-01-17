@@ -4,20 +4,21 @@ import androidx.lifecycle.viewModelScope
 import evgeny.fetskovich.kmpstudy.app.architecture.mvi.UserEvent
 import evgeny.fetskovich.kmpstudy.app.architecture.mvi.UserEventProcessor
 import evgeny.fetskovich.kmpstudy.app.ui.base.viewmodel.BaseViewModel
+import evgeny.fetskovich.kmpstudy.app.ui.screens.signin.mvi.SignInNavigationEvent
 import evgeny.fetskovich.kmpstudy.app.ui.screens.signin.mvi.SignInStateHosting
 import evgeny.fetskovich.kmpstudy.app.ui.screens.signin.mvi.SignInUserEvent
 import evgeny.fetskovich.kmpstudy.app.validation.ValidationField
 import evgeny.fetskovich.kmpstudy.domain.coroutines.CoroutineContextProvider
-import evgeny.fetskovich.kmpstudy.domain.usecase.initial.AuthorizeUserIntent
-import evgeny.fetskovich.kmpstudy.domain.usecase.initial.AuthorizeUserUseCase
+import evgeny.fetskovich.kmpstudy.domain.usecase.authorization.AuthorizeUserIntent
+import evgeny.fetskovich.kmpstudy.domain.usecase.authorization.AuthorizeUserUseCase
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class SignInViewModel(
     private val stateHosting: SignInStateHosting,
     private val authorizeUserUseCase: AuthorizeUserUseCase,
-    private val coroutineDispatcher: CoroutineContextProvider,
-) : BaseViewModel(), UserEventProcessor {
+    coroutineDispatcher: CoroutineContextProvider,
+) : BaseViewModel(coroutineDispatcher), UserEventProcessor {
 
     val screenState = stateHosting.screenState
 
@@ -59,8 +60,8 @@ class SignInViewModel(
         val name = screenState.value.username.text
         val password = screenState.value.password.text
 
-        val isNameValid = name.isNotEmpty()
-        val isPasswordValid = password.isNotEmpty()
+        val isNameValid = name.isNotEmpty() // TODO Apply validation rules
+        val isPasswordValid = password.isNotEmpty() // TODO Apply validation rules
 
         if (isNameValid && isPasswordValid) {
             return true
@@ -81,7 +82,7 @@ class SignInViewModel(
     }
 
     private fun signUp() {
-
+        sendNavigation(SignInNavigationEvent.ToSignUp)
     }
 
     private fun updatePassword(value: String) {

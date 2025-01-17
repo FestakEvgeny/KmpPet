@@ -23,11 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import cafe.adriel.voyager.navigator.LocalNavigator
 import evgeny.fetskovich.kmpstudy.app.architecture.mvi.MockUserEventProcessor
 import evgeny.fetskovich.kmpstudy.app.architecture.mvi.UserEventProcessor
+import evgeny.fetskovich.kmpstudy.app.extensions.collectNavigation
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.OnboardingFooter
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.OnboardingHeader
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.components.pager.OnboardingPager
@@ -50,8 +49,6 @@ import fetskovichkmppet.composeapp.generated.resources.onboarding_page_third_tex
 import fetskovichkmppet.composeapp.generated.resources.onboarding_page_third_title
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 private val horizontalPadding = 12.dp
@@ -71,17 +68,15 @@ fun OnboardingScreen(
     )
 
     LaunchedEffect(Unit) {
-        launch {
-            viewModel.navigationResult
-                .flowWithLifecycle(lifecycleOwner.lifecycle, Lifecycle.State.RESUMED)
-                .map { it as OnboardingScreenNavigation }
-                .collectLatest { navigation ->
-                    when (navigation) {
-                        OnboardingScreenNavigation.CloseOnboarding -> {
-                            navigator?.push(SignInNavigation())
-                        }
-                    }
+        viewModel.collectNavigation<OnboardingScreenNavigation>(
+            lifecycleOwner = lifecycleOwner,
+            scope = this
+        ) { navigation ->
+            when (navigation) {
+                OnboardingScreenNavigation.CloseOnboarding -> {
+                    navigator?.push(SignInNavigation())
                 }
+            }
         }
     }
 }

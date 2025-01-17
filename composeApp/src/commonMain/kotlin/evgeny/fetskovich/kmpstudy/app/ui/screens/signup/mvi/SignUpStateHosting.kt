@@ -36,6 +36,20 @@ class SignUpStateHosting : StateHosting<SignUpScreenState>(){
         }
     }
 
+    fun updateAuthorizationData(
+        name: ValidationField,
+        password: ValidationField,
+        confirmPassword: ValidationField,
+    ) {
+        _screenState.update {
+            it.copy(
+                username = name,
+                password = password,
+                confirmPassword = confirmPassword,
+            )
+        }
+    }
+
     override fun createInitialState(): SignUpScreenState = SignUpScreenState(
         username = ValidationField(),
         password = ValidationField(),

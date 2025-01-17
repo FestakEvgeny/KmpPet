@@ -13,5 +13,10 @@ interface UserRepository {
         password: String
     ): Flow<Boolean>
 
+    fun registerUser(
+        login: String,
+        password: String,
+    ): Flow<Boolean>
+
     fun logout(): Flow<Boolean>
 }

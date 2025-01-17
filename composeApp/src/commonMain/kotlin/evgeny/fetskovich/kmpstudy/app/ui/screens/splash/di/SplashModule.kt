@@ -9,6 +9,7 @@ val splashModule = module {
     viewModelDefinition {
         SplashViewModel(
             setupInitialDataUseCase = get(),
+            coroutineDispatcher = get(),
         )
     }
 }

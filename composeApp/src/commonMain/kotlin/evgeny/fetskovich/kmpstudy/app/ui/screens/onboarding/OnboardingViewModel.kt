@@ -6,10 +6,12 @@ import evgeny.fetskovich.kmpstudy.app.ui.base.viewmodel.BaseViewModel
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.mvi.OnboardingScreenNavigation
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.mvi.OnboardingStateHosting
 import evgeny.fetskovich.kmpstudy.app.ui.screens.onboarding.mvi.OnboardingUserEvent
+import evgeny.fetskovich.kmpstudy.domain.coroutines.CoroutineContextProvider
 
 class OnboardingViewModel(
     private val stateHosting: OnboardingStateHosting,
-) : BaseViewModel(), UserEventProcessor {
+    coroutineDispatcher: CoroutineContextProvider,
+) : BaseViewModel(coroutineDispatcher), UserEventProcessor {
 
     val state = stateHosting.screenState
 
