@@ -37,6 +37,13 @@
     <string name="sign_up_already_have_account">I Already Have an Account</string>
     <string name="sign_up_login">Login</string>
 
+    <!-- Forgot password -->
+    <string name="forgot_password_title">Forgot\npassword?</string>
+    <string name="forgot_password_enter_email">Enter your email address</string>
+    <string name="forgot_password_additional">* We will send you a message to set or reset your new password</string>
+    <string name="forgot_password_submit">Submit</string>
+
+
     <!-- Welcome -->
     <string name="welcome_title">You want\nAuthentic, here\nyou go!</string>
     <string name="welcome_description">Find it here, buy it now!</string>
