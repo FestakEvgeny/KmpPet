@@ -9,7 +9,9 @@ import evgeny.fetskovich.kmpstudy.app.ui.screens.signup.mvi.SignUpStateHosting
 import evgeny.fetskovich.kmpstudy.app.ui.screens.signup.mvi.SignUpUserEvent
 import evgeny.fetskovich.kmpstudy.app.validation.ValidationField
 import evgeny.fetskovich.kmpstudy.domain.coroutines.CoroutineContextProvider
+import evgeny.fetskovich.kmpstudy.domain.usecase.authorization.RegisterUserIntent
 import evgeny.fetskovich.kmpstudy.domain.usecase.authorization.RegisterUserUseCase
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(
@@ -54,14 +56,20 @@ class SignUpViewModel(
     private fun createUserAccount() {
         val name = screenState.value.username.text
         val password = screenState.value.password.text
-        val passwordConfirmation = screenState.value.confirmPassword.text
 
         if (!validateUserData()) {
             return
         }
 
         viewModelScope.launch {
+            registerUserUseCase.execute(
+                RegisterUserIntent(
+                    name = name,
+                    password = password
+                )
+            ).collectLatest {
 
+            }
         }
     }
 

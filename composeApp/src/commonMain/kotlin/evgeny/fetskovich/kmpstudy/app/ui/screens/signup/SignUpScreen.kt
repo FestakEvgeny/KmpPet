@@ -58,7 +58,7 @@ fun SignUpScreen(
     )
 
     LaunchedEffect(Unit) {
-        viewModel.collectNavigation<SignUpNavigation>(
+        viewModel.collectNavigation<SignInNavigationEvent>(
             lifecycleOwner = lifecycleOwner,
             scope = this
         ) { navigation ->
